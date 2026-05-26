@@ -1,10 +1,10 @@
 /* ══════════════════════════════════════════════════════════════
    CONFIGURACIÓN SUPABASE — CEA Fénix
-   IMPORTANTE: esta es la clave pública (publishable), es segura
-   para el frontend. NUNCA subas la secret key al repositorio.
+   anon key: segura para el frontend (solo lectura con RLS activo)
+   NUNCA subas la service_role key al repositorio.
 ══════════════════════════════════════════════════════════════ */
 const SUPABASE_URL = "https://xkyfqqewxxsmdzjvrlpp.supabase.co";
-const SUPABASE_KEY = "sb_publishable__8XDVZxZLHSvLQ6Sw_79AA_KFw32ygY";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhreWZxcWV3eHhzbWR6anZybHBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3NTk1OTQsImV4cCI6MjA5NTMzNTU5NH0.3188IFGUvesomnPiutz54QKd99gUgUFaSJEPyhnGJKM";
 
 async function cargarPreguntas() {
   try {
@@ -20,10 +20,9 @@ async function cargarPreguntas() {
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    // Transformar al formato que usa main.js
     return data.map(p => ({
-      cat: p.categoria,
-      q:   p.pregunta,
+      cat:  p.categoria,
+      q:    p.pregunta,
       opts: p.opciones,
       ans:  p.respuesta,
       exp:  p.explicacion
