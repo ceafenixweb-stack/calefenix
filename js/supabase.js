@@ -9,7 +9,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 async function cargarPreguntas() {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/preguntas?activa=eq.true&select=categoria,pregunta,opciones,respuesta,explicacion`,
+      `${SUPABASE_URL}/rest/v1/preguntas?activa=eq.true&select=categoria,pregunta,opciones,respuesta,explicacion,imagen_url`,
       {
         headers: {
           "apikey": SUPABASE_KEY,
@@ -25,7 +25,8 @@ async function cargarPreguntas() {
       q:    p.pregunta,
       opts: p.opciones,
       ans:  p.respuesta,
-      exp:  p.explicacion
+      exp:  p.explicacion,
+      img:  p.imagen_url || null
     }));
   } catch (err) {
     console.error("Error cargando preguntas desde Supabase:", err);

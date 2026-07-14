@@ -53,6 +53,14 @@ function loadQuestion() {
   document.getElementById('progress-fill').style.width = `${((idx + 1) / TOTAL_QUESTIONS) * 100}%`;
   document.getElementById('q-category').textContent = q.cat;
   document.getElementById('q-text').textContent = q.q;
+  const qImg = document.getElementById('q-image');
+  if (q.img) {
+    qImg.src = q.img;
+    qImg.style.display = 'block';
+  } else {
+    qImg.removeAttribute('src');
+    qImg.style.display = 'none';
+  }
   const fb = document.getElementById('feedback-box');
   fb.className = 'feedback-box';
   document.getElementById('btn-next').classList.remove('show');
@@ -165,8 +173,10 @@ function showReview() {
       else if (idx === a.selected && !a.correct) cls = 'r-wrong';
       return cls ? `<div class="review-opt ${cls}">${idx === a.q.ans ? '✅' : '❌'} ${opt}</div>` : '';
     }).join('');
+    const imgHtml = a.q.img ? `<img class="q-img" src="${a.q.img}" alt="Señal de tránsito">` : '';
     div.innerHTML = `
       <p class="review-q">${i+1}. ${a.q.q}</p>
+      ${imgHtml}
       <div class="review-opts">${optsHtml}</div>
       <p style="font-size:.8rem;color:var(--text-light);margin-top:.5rem"><i class="fa-solid fa-lightbulb"></i> ${a.q.exp}</p>
     `;
